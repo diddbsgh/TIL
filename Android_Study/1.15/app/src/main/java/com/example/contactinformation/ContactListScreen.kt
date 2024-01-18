@@ -30,7 +30,7 @@ fun ContactListScreen(navController: NavController? = null){
 }
 
 @Composable
-fun ContactListItem(contact: String, navController: NavController? = null) {
+fun ContactListItem(contact: String, navController: NavController? = null) {  // 전화번호 목록
     Row(
         modifier = Modifier
             .clickable {

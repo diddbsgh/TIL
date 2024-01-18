@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.example.contactinformation.ui.theme.ContactInformationTheme
 
 @Composable
-fun ContactDetailsScreen(contact: String, onBack: () -> Unit) {
+fun ContactDetailsScreen(contact: String, onBack: () -> Unit) {   // 전화번호 상세보기 페이지
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
