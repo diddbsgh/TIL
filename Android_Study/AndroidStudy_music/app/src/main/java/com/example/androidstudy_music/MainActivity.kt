@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.androidstudy_music.ui.music.MusicScreen
 import com.example.androidstudy_music.ui.theme.AndroidStudy_musicTheme
 
 class MainActivity : ComponentActivity() {
@@ -53,107 +54,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun MusicScreen() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ){
-        TopAppBar(
-            modifier = Modifier.fillMaxWidth(),
-        )
-        CoverImage(
-            modifier = Modifier
-                .size(350.dp)
-        )
-        MusicInformation(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-        )
-        MusicController(
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
-}
-
-@Composable
-fun TopAppBar(
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        modifier = modifier.background(Color.Blue),
-        horizontalArrangement = Arrangement.Absolute.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ){
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(
-                imageVector = Icons.Outlined.KeyboardArrowDown,
-                contentDescription = null,
-            )
-        }
-        Text(
-            text = "IU")
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(
-                imageVector = Icons.Outlined.MoreVert,
-                contentDescription = null)
-        }
-    }
-}
-
-@Composable
-fun CoverImage(
-    modifier: Modifier = Modifier,
-) {
-    Image(
-        modifier = modifier,
-        painter = painterResource(id = R.drawable.image), contentDescription = null )
-}
-
-@Composable
-fun MusicInformation(
-    modifier: Modifier =Modifier
-) {
-    var progress by remember { mutableFloatStateOf(0f) }
-
-    Column(modifier = modifier) {
-        Text(text = "LILAC")
-        Text(text = "IU")
-        Slider(
-            value = progress,
-            onValueChange = { newValue ->
-                progress = newValue
-        },
-        )
-    }
-}
-
-@Composable
-fun MusicController(
-    modifier: Modifier = Modifier
-) {
-    var playing by remember{ mutableStateOf(false) }
-
-    Row(
-       modifier = modifier,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = null)
-        }
-        IconButton(
-
-            onClick = {playing = !playing}) {
-            Icon(imageVector = if(playing){
-                Icons.Filled.Refresh
-            } else {
-                Icons.Filled.PlayArrow
-            }, contentDescription = null)
-
-    }
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(imageVector = Icons.Outlined.ArrowForward, contentDescription = null)
-
-        }}}
