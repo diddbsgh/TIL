@@ -40,7 +40,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.androidstudy_music.ui.home.HomeScreen
 import com.example.androidstudy_music.ui.music.MusicScreen
+import com.example.androidstudy_music.ui.playlist.PlayListScreen
 import com.example.androidstudy_music.ui.theme.AndroidStudy_musicTheme
 
 class MainActivity : ComponentActivity() {
@@ -48,9 +53,30 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AndroidStudy_musicTheme {
-                MusicScreen()
+                MusicApp()
             }
         }
     }
 }
 
+@Composable
+fun MusicApp() {
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = "home",
+    ) {
+        composable("home") {
+            HomeScreen(
+                openPlayList = {
+                    navController.navigate("play_list")
+                },
+            )
+        }
+        composable("play_list") {
+            PlayListScreen(
+                navigateUp = navController::navigateUp
+            )
+        }
+    }
+}
