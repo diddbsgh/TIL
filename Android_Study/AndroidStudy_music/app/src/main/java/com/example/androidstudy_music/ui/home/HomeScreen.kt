@@ -2,10 +2,13 @@ package com.example.androidstudy_music.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -22,29 +25,48 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    openPlayList: () -> Unit
+    openPlayList: () -> Unit,
+    onShowCurrentPlayModal: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(title = {Text(text = "Androidpotify")})
         },
         bottomBar = {
-            BottomAppBar {
-                homeBottomAppBarItems.forEach { bottomAppBarItem ->
-                    NavigationBarItem(
-                        selected = true,
-                        onClick = {
-                        },
-                        icon = {
-                            Icon(
-                                painter = painterResource(id = bottomAppBarItem.iconRes),
-                                contentDescription = null
-                            )
-                        }
-                    )
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Button(
+                        onClick = { onShowCurrentPlayModal() },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp),
+                    ) {
+                        Text(text = "음악 보러 가기")
+                    }
+                }
+                BottomAppBar {
+                    homeBottomAppBarItems.forEach { bottomAppBarItem ->
+                        NavigationBarItem(
+                            selected = true,
+                            onClick = { },
+                            icon = {
+                                Icon(
+                                    painter = painterResource(id = bottomAppBarItem.iconRes),
+                                    contentDescription = null,
+                                )
+                            },
+                            label = {
+                                Text(text = bottomAppBarItem.label)
+                            },
+                        )
+                    }
                 }
             }
-        }
+        },
     ) {
         paddingValues ->
         Column(

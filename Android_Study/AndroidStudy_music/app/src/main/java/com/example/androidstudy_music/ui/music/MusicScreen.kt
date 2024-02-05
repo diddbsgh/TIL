@@ -42,13 +42,15 @@ import com.example.androidstudy_music.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MusicScreen() {
+fun MusicScreen(
+    onHideCurrentPlayModal: () -> Unit
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
              TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = onHideCurrentPlayModal) {
                         Icon(imageVector = Icons.Outlined.KeyboardArrowDown,
                             contentDescription = null,
                             )
@@ -56,7 +58,7 @@ fun MusicScreen() {
                 },
                 title = { Text(text = "IU") },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {  }) {
                         Icon(
                             imageVector = Icons.Outlined.MoreVert,
                             contentDescription = null
