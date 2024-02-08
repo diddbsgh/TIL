@@ -3,55 +3,20 @@ package com.example.androidstudy_music
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.ArrowForward
-import androidx.compose.material.icons.outlined.KeyboardArrowDown
-import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetValue
-import androidx.compose.material3.Slider
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.androidstudy_music.ui.home.HomeScreen
-import com.example.androidstudy_music.ui.music.MusicScreen
+import com.example.androidstudy_music.ui.music.MusicSheetContent
 import com.example.androidstudy_music.ui.playlist.PlayListScreen
 import com.example.androidstudy_music.ui.theme.AndroidStudy_musicTheme
 import kotlinx.coroutines.launch
@@ -82,7 +47,7 @@ fun MusicApp() {
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetContent = {
-            MusicScreen(
+            MusicSheetContent (
                 onHideCurrentPlayModal = {
                     scope.launch {
                         scaffoldState.bottomSheetState.hide()
@@ -98,8 +63,8 @@ fun MusicApp() {
         ) {
             composable("home") {
                 HomeScreen(
-                    openPlayList = {
-                        navController.navigate("play_list")
+                    openPlayList = { playListId, playListTitle ->
+                        navController.navigate("play_list/$playListId?title=$playListTitle")
                     },
                     onShowCurrentPlayModal = {
                         scope.launch {
@@ -108,9 +73,26 @@ fun MusicApp() {
                     }
                 )
             }
-            composable("play_list") {
+            composable(
+                route = "play_list/{play_list_id}?title={play_list_title}",
+                arguments = listOf(
+                    navArgument(name = "play_list_id"){
+                        type = NavType.LongType
+                    },
+                    navArgument(name = "play_list_title"){
+                        type = NavType.StringType
+                    }
+                ),
+            ) {backStackEntry ->
+                val playListId = backStackEntry.arguments?.getLong("play_list_id")
+                    ?: throw IllegalArgumentException()
+                val playListTitle = backStackEntry.arguments?.getString("play_list_title")
+                    ?: throw IllegalArgumentException()
+
                 PlayListScreen(
-                    navigateUp = navController::navigateUp
+                    navigateUp = navController::navigateUp,
+                    playListId = playListId,
+                    playListTitle = playListTitle,
                 )
             }
         }

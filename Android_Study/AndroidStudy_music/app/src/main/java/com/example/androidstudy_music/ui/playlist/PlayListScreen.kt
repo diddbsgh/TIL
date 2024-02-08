@@ -20,21 +20,24 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayListScreen(
-   navigateUp: () -> Unit
+    navigateUp: () -> Unit,
+    playListId: Long,
+    playListTitle: String,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
-                        Icon(imageVector = Icons.Outlined.ArrowBack,
+                        Icon(
+                            imageVector = Icons.Outlined.ArrowBack,
                             contentDescription = null,
                         )
                     }
                 },
-                title = { Text(text = "내 플레이리스트") })
+                title = { Text(text = playListTitle) })
         },
-    ) {paddingValues ->
+    ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
