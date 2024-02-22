@@ -19,8 +19,10 @@ import com.example.androidstudy_music.ui.home.HomeScreen
 import com.example.androidstudy_music.ui.music.MusicSheetContent
 import com.example.androidstudy_music.ui.playlist.PlayListScreen
 import com.example.androidstudy_music.ui.theme.AndroidStudy_musicTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
