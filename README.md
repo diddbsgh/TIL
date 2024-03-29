@@ -1,2 +1,2 @@
 # TIL
-Today I learn 📚
+Today I learn
